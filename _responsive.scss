@@ -1,0 +1,13 @@
+//반응형 1024px 
+@include respond(desktop){
+  // 비주얼 영역 2단을 1단으로 
+  .visual{
+    .container{
+      @include grid-container(1fr, $grid-gap-sm);
+    }
+  }
+}
+//반응형 768px
+@include respond(tablet){}
+//반응형 480px
+@include respond(mobile){}

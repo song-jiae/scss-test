@@ -1,0 +1,217 @@
+/*리셋*/
+@import 'reset';
+/*변수*/
+@import 'variables';
+/*믹스인*/
+@import 'mixins';
+/*헤더푸터*/
+@import 'header';
+@import 'footer';
+
+
+//버튼 
+.btn{
+  @include border(all);
+  padding: $space-sm $space-lg;
+  display: inline-block;
+  background: $color-black;
+  color: $color-gray-light;
+  font-size: $font-md;
+  @include transition(all , 0.3s);
+  &:hover{
+    background: $color-point;
+    color: $color-white;
+  }
+}
+.btn.btn-ouline{
+   background: $color-white;
+   color: $color-black;
+    &:hover{
+    background: $color-point;
+    color: $color-white;
+  }
+}
+//컨테이너
+.container{
+  width: 1400px;
+  margin: 0 auto;
+}
+@include respond(tablet){
+  body{background: yellow;}
+  .container{width: 100%;}
+}
+@include respond(mobile){
+  body{background: rgb(229, 178, 84);}
+  .container{width: 100%;}
+}
+//공통 section
+section{
+  padding: $space-5xl;
+  @include border(bottom);
+}
+.section-title{
+  @include section-title;
+}
+.section-header{
+  @include grid-container(1fr auto, $grid-gap-md);
+  align-items: center;
+  margin-bottom: $grid-gap-lg;
+}
+
+//visual
+.visual{
+  @include border(bottom);
+  .container{
+    @include grid-container(1fr 1fr, $grid-gap-lg);
+    align-items: center;
+    .visual-content{
+      h2{
+        font-size: $font-headline;
+        line-height: 1.1;
+      }
+      p{
+        margin: $space-2xl 0; 
+        color: $color-gray
+      }
+    }
+    .visual-image{
+      @include border(all);
+      @include grid-center;
+      aspect-ratio: 4/3; //비율설정
+      background: $color-bg-light;
+    }
+  }
+}
+
+//product
+.products{
+  //4단 컬럼 레이아웃
+  @include grid-container(repeat(4, 1fr), $grid-gap-md);
+  .product-card{
+    @include card-base;
+    @include grid-container(auto 1fr, 0);
+    @include transition();
+    .product-image{
+      aspect-ratio: 1;
+      @include grid-center;
+      position: relative;
+      background: $color-bg-light;
+      padding: $space-lg;
+    }
+    .product-info{
+      padding: $space-lg;
+      @include grid-container(1fr, $space-xs);
+      grid-template-rows: auto auto 1fr;
+      align-content: space-between;
+      .product-category{
+        font-size: $font-xs;
+        color:$color-gray-light;
+      }
+      .product-title{
+        font-size: $font-base;
+      }
+      .product-price{
+        .product-price-original{
+          text-decoration: line-through;
+          color: $color-gray-light;
+          font-weight: 400;
+          font-size: $font-base;
+        }
+      }
+    }
+  }
+}
+//뱃지
+.product-badge{
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: $color-black;
+  color:$color-white;
+  padding: 4px;
+  font-size: $font-xs;
+}
+//categories
+.categories-section{
+  background: $color-bg-light;
+}
+.categories{
+  @include grid-container(repeat(3, 1fr), $grid-gap-md);
+  .category-card{
+    @include card-base;
+    padding: $grid-gap-lg;
+    @include grid-container(1fr, 0);
+    grid-template-rows: repeat(3, auto);
+    text-align: center; cursor: pointer;
+    .category-icon{}
+    .category-title{font-size: $font-2xl;}
+    .category-count{font-size: $font-base; font-weight: 200; color: $color-gray-light}
+  }
+}
+//features
+.feature-grid{
+  @include grid-container(repeat(4, 1fr), 0);
+  @include border(all);
+  .feature-item{
+    @include border(right);
+    @include grid-center;
+    padding: $space-2xl;
+    .feature-icon{}
+    .feature-title{}
+    .feature-desc{}
+  }
+}
+
+//반응형 1024px 
+@include respond(desktop){
+  body{ background: pink}
+  .feature-grid{
+    grid-template-columns: repeat(2, auto);
+    .feature-item{
+      @include border(bottom);
+      padding: $space-xl;
+    }
+  }
+  // products 4단 > 3단
+  .products{ grid-template-columns: repeat(3, 1fr);}
+  //헤더영역
+  header{padding: $space-md;}
+  //카테고리 영역 3단 > 2단
+.categories{ grid-template-columns: repeat(2, 1fr);}
+  // 비주얼 영역 2단을 1단으로 
+  .visual{
+    .container{
+      @include grid-container(1fr, $grid-gap-sm);
+      .visual-image{order: 1;}
+      .visual-content{order: 2;}
+    }
+  }
+}
+//반응형 768px 테블릿
+@include respond(tablet){
+  body{ background: rgb(24, 179, 39)}
+  //카테고리 영역 3단 > 2단
+  .categories{ grid-template-columns: repeat(2, 1fr);}
+  .products{
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: $space-sm;
+    .product-card{display: inline-block;}
+  }
+}
+//반응형 480px 모바일
+@include respond(mobile){
+   body{ background: rgb(191, 198, 10)}
+  //카테고리 영역 2단 > 1단
+  .categories{ grid-template-columns: 1fr;}
+  .products{
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: $space-sm;
+  }
+  .feature-grid{
+    grid-template-columns:auto;
+    .feature-item{
+      @include border(bottom);
+      padding: $space-xl;
+    }
+  }
+}
